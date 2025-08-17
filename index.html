@@ -3,52 +3,120 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>SVG controlable</title>
+  <title>Header con SVG sorprendente</title>
   <style>
-    .svg-shell {
-      width: min(92vw, 640px);
-      height: min(70vh, 420px);
-      border: 1px solid #ccc;
-      border-radius: 16px;
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      color: white;
+      background: #b8c4e0;
+    }
+
+    /* HEADER estilo hero */
+    header {
+      position: relative;
+      height: 60vh;                   /* ocupa 60% de la altura visible */
+      min-height: 320px;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Contenedor SVG como fondo */
+    #svg-container {
+      position: absolute;
+      inset: 0;
       display: grid;
       place-items: center;
-      padding: 12px;
-      background: white;
     }
     svg {
       width: 100%;
       height: 100%;
-      display: block;
+      object-fit: cover;
     }
-    /* Ejemplo: cambio de color desde CSS */
+
+    /* Capa oscura para contraste */
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(15,23,42,0.6), rgba(15,23,42,0.9));
+      z-index: 1;
+    }
+
+    /* Contenido del header */
+    .hero-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .hero-text h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin: 0;
+    }
+    .hero-text p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      margin-top: 0.5rem;
+    }
+
+    /* Elemento SVG manipulable */
     .cuerpo {
-      fill: #60a5fa; /* azul por defecto */
-      transition: fill 0.4s ease;
+      fill: #38bdf8; /* celeste */
+      transition: fill 0.5s ease;
     }
     .cuerpo:hover {
-      fill: #f43f5e; /* rojo al pasar el mouse */
+      fill: #f43f5e; /* rojo al pasar mouse */
+    }
+
+    /* Contenido inferior para ver el efecto scroll */
+    main {
+      padding: 2rem;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      background: white;
+      color: #1e293b;
     }
   </style>
 </head>
 <body>
-  <main class="svg-shell" id="svg-container"></main>
 
-  <script>
-    fetch("hipopotetico.svg")
-      .then(r => r.text())
-      .then(svg => {
-        document.getElementById("svg-container").innerHTML = svg;
+<header>
+  <!-- Contenedor del SVG -->
+  <div id="svg-container"></div>
 
-        // Ejemplo: animar con JS
-        const parte = document.querySelector(".cuerpo");
-        let creciente = true;
-        setInterval(() => {
-          const scale = creciente ? 1.2 : 1;
-          parte.setAttribute("transform", `scale(${scale})`);
-          creciente = !creciente;
-        }, 800);
-      });
-  </script>
+  <!-- Texto superpuesto -->
+  <div class="hero-text">
+    <h1>Hipopótamo Hipotético</h1>
+    <p>Animado, dinámico y sorprendente</p>
+  </div>
+</header>
+
+<main>
+  <h2>Contenido de la página</h2>
+  <p>
+    Este es un ejemplo de cómo usar un SVG como fondo animado en el header.
+    Puedes cambiar colores, mover partes y aplicar efectos sin perder calidad.
+  </p>
+</main>
+
+<script>
+  fetch("hipopotetico.svg")
+    .then(r => r.text())
+    .then(svg => {
+      document.getElementById("svg-container").innerHTML = svg;
+
+      // Seleccionamos la parte con clase .cuerpo y la animamos suavemente
+      const parte = document.querySelector(".cuerpo");
+      let scale = 1;
+      let creciendo = true;
+      setInterval(() => {
+        scale = creciendo ? 1.15 : 1;
+        parte.setAttribute("transform", `scale(${scale})`);
+        creciendo = !creciendo;
+      }, 1200);
+    });
+</script>
+
 </body>
 </html>
