@@ -143,6 +143,36 @@
       animation: fadeIn 1s ease forwards;
     }
 
+    /* Estilos para la rosa */
+    #rosa-container {
+      position: absolute;
+      top: 10%; /* Ajusta la posición vertical */
+      left: 10%; /* Ajusta la posición horizontal */
+      width: 150px; /* Ajusta el tamaño */
+      height: 150px;
+      z-index: 3; /* Asegura que esté por encima del hipopótamo */
+      pointer-events: none; /* Permite interactuar con el hipopótamo debajo */
+    }
+
+    #rosa-container svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Animación para la rosa */
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #rosa-container svg {
+      animation: rotate 10s linear infinite; /* Rotación lenta y continua */
+    }
+
   </style>
 </head>
 <body>
@@ -151,10 +181,13 @@
     <!-- Contenedor del SVG -->
     <div id="svg-container"></div>
 
+    <!-- Rosa SVG superpuesta -->
+    <div id="rosa-container"></div>
+
     <!-- Texto superpuesto -->
     <div class="hero-text">
       <h1>Hipopótamo Hipotético</h1>
-      <p>Animado, dinámico y sorprendente</p>
+      <p>Animado, dinámico y sorprendente con una rosa!</p>
     </div>
   </header>
 
@@ -162,7 +195,7 @@
     <section>
       <h2>Contenido Principal</h2>
       <p>
-        Aquí va el contenido principal de la página. Este es un ejemplo de cómo usar un SVG como fondo animado en el header y en el footer. El SVG es la estrella, por eso se repite.
+        Aquí va el contenido principal de la página. Este es un ejemplo de cómo usar un SVG como fondo animado en el header y en el footer. El SVG es la estrella, por eso se repite.  ¡Y ahora tiene una rosa!
       </p>
     </section>
 
@@ -173,6 +206,7 @@
         <li>Diseño adaptable a diferentes pantallas.</li>
         <li>Footer llamativo con el mismo SVG.</li>
         <li>Estilo moderno y minimalista.</li>
+        <li>¡Una rosa giratoria para sorprender!</li>
       </ul>
     </section>
 
@@ -215,8 +249,18 @@
             });
     };
 
+    const fetchAndSetRosa = () => {
+      fetch("rosa.svg")
+        .then(r => r.text())
+        .then(svg => {
+          document.getElementById("rosa-container").innerHTML = svg;
+        });
+    };
+
+
     fetchAndSetSvg("svg-container"); // Header
     fetchAndSetSvg("svg-container-footer"); // Footer
+    fetchAndSetRosa(); // Rosa
 
   </script>
 
