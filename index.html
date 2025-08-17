@@ -230,7 +230,7 @@
 
   <script>
     const fetchAndSetSvg = (svgContainerId) => {
-        fetch("hipopotetico.svg")
+        fetch("dulce.svg")
             .then(r => r.text())
             .then(svg => {
                 document.getElementById(svgContainerId).innerHTML = svg;
@@ -252,7 +252,7 @@
     };
 
     const fetchAndSetRosa = () => {
-      fetch("corazon.svg")
+      fetch("rosa.svg")
         .then(r => r.text())
         .then(svg => {
           document.getElementById("rosa-container").innerHTML = svg;
