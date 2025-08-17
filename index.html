@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Header con SVG sorprendente</title>
+  <title>Hipopótamo Hipotético - Un sitio con SVG sorprendente</title>
   <style>
     body {
       margin: 0;
       font-family: system-ui, sans-serif;
       color: white;
-      background: #b8c4e0;
+      background: #d7dbe4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Asegura que el footer quede abajo */
     }
 
     /* HEADER estilo hero */
     header {
       position: relative;
-      height: 60vh;                   /* ocupa 60% de la altura visible */
+      height: 60vh;
       min-height: 320px;
       overflow: hidden;
       display: flex;
@@ -23,7 +26,7 @@
       justify-content: center;
     }
 
-    /* Contenedor SVG como fondo */
+    /* Contenedor SVG */
     #svg-container {
       position: absolute;
       inset: 0;
@@ -36,16 +39,16 @@
       object-fit: cover;
     }
 
-    /* Capa oscura para contraste */
-    header::after {
+    /* Capa oscura */
+    header::after, footer::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(15,23,42,0.6), rgba(15,23,42,0.9));
+      background: linear-gradient(to bottom, rgba(15,23,42,0.3), rgba(15,23,42,0.6));
       z-index: 1;
     }
 
-    /* Contenido del header */
+    /* Texto header */
     .hero-text {
       position: relative;
       z-index: 2;
@@ -62,61 +65,160 @@
 
     /* Elemento SVG manipulable */
     .cuerpo {
-      fill: #38bdf8; /* celeste */
+      fill: #38bdf8;
       transition: fill 0.5s ease;
     }
     .cuerpo:hover {
-      fill: #f43f5e; /* rojo al pasar mouse */
+      fill: #f43f5e;
+    }
+    path {
+        stroke: #64748b;
+        stroke-width: 2;
+    }
+    svg {
+        background-color: rgba(0, 0, 0, 0.1);
     }
 
-    /* Contenido inferior para ver el efecto scroll */
+    /* Contenido principal */
     main {
       padding: 2rem;
       font-size: 1.1rem;
       line-height: 1.5;
       background: white;
       color: #1e293b;
+      flex: 1; /* Ocupa el espacio restante */
     }
+
+    /* Footer similar al header */
+    footer {
+      position: relative;
+      height: 40vh; /* Un poco más pequeño que el header */
+      min-height: 200px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Centra el contenido en el footer */
+      color: white; /* Asegura que el texto del footer sea blanco */
+    }
+
+    /* Contenedor SVG en el footer, similar al header */
+    #svg-container-footer {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+
+    footer::before { /* Capa oscura en el footer */
+      background: linear-gradient(to top, rgba(15,23,42,0.6), rgba(15,23,42,0.9)); /* Gradiente invertido */
+    }
+
+    .footer-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    /* Estilos adicionales para resaltar secciones */
+    section {
+      padding: 2rem;
+      margin-bottom: 2rem;
+      background: #f9fafb;
+      color: #1e293b;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    section h2 {
+      margin-bottom: 1rem;
+      color: #334155;
+    }
+
+    /* Animación sutil para la sección de características */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feature-section {
+      animation: fadeIn 1s ease forwards;
+    }
+
   </style>
 </head>
 <body>
 
-<header>
-  <!-- Contenedor del SVG -->
-  <div id="svg-container"></div>
+  <header>
+    <!-- Contenedor del SVG -->
+    <div id="svg-container"></div>
 
-  <!-- Texto superpuesto -->
-  <div class="hero-text">
-    <h1>Hipopótamo Hipotético</h1>
-    <p>Animado, dinámico y sorprendente</p>
-  </div>
-</header>
+    <!-- Texto superpuesto -->
+    <div class="hero-text">
+      <h1>Hipopótamo Hipotético</h1>
+      <p>Animado, dinámico y sorprendente</p>
+    </div>
+  </header>
 
-<main>
-  <h2>Contenido de la página</h2>
-  <p>
-    Este es un ejemplo de cómo usar un SVG como fondo animado en el header.
-    Puedes cambiar colores, mover partes y aplicar efectos sin perder calidad.
-  </p>
-</main>
+  <main>
+    <section>
+      <h2>Contenido Principal</h2>
+      <p>
+        Aquí va el contenido principal de la página. Este es un ejemplo de cómo usar un SVG como fondo animado en el header y en el footer. El SVG es la estrella, por eso se repite.
+      </p>
+    </section>
 
-<script>
-  fetch("hipopotetico.svg")
-    .then(r => r.text())
-    .then(svg => {
-      document.getElementById("svg-container").innerHTML = svg;
+    <section class="feature-section">
+      <h2>Características</h2>
+      <ul>
+        <li>Animación suave del SVG.</li>
+        <li>Diseño adaptable a diferentes pantallas.</li>
+        <li>Footer llamativo con el mismo SVG.</li>
+        <li>Estilo moderno y minimalista.</li>
+      </ul>
+    </section>
 
-      // Seleccionamos la parte con clase .cuerpo y la animamos suavemente
-      const parte = document.querySelector(".cuerpo");
-      let scale = 1;
-      let creciendo = true;
-      setInterval(() => {
-        scale = creciendo ? 1.15 : 1;
-        parte.setAttribute("transform", `scale(${scale})`);
-        creciendo = !creciendo;
-      }, 1200);
-    });
-</script>
+    <section>
+      <h2>Más Información</h2>
+      <p>
+        Si quieres saber más sobre cómo crear headers y footers con SVGs, consulta nuestra documentación.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Contenedor del SVG para el footer -->
+    <div id="svg-container-footer"></div>
+    <div class="footer-content">
+      <p>&copy; 2023 Hipopótamo Hipotético. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script>
+    const fetchAndSetSvg = (svgContainerId) => {
+        fetch("hipopotetico.svg")
+            .then(r => r.text())
+            .then(svg => {
+                document.getElementById(svgContainerId).innerHTML = svg;
+
+                // Animación (opcional): Solo para el header en este caso
+                if (svgContainerId === "svg-container") {
+                    const parte = document.querySelector("#svg-container .cuerpo");
+                    if (parte) {
+                      let scale = 1;
+                      let creciendo = true;
+                      setInterval(() => {
+                          scale = creciendo ? 1.15 : 1;
+                          parte.setAttribute("transform", `scale(${scale})`);
+                          creciendo = !creciendo;
+                      }, 1200);
+                    }
+                }
+            });
+    };
+
+    fetchAndSetSvg("svg-container"); // Header
+    fetchAndSetSvg("svg-container-footer"); // Footer
+
+  </script>
 
 </body>
 </html>
